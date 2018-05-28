@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -69,6 +70,20 @@ class CreateThreadsTest extends TestCase
         $thread = make('App\Thread', $overrides);
 
         return $this->post('/threads', $thread->toArray());
+    }
+
+    /** @test */
+    public function a_user_can_filter_threads_by_any_username()
+    {
+         $this->signIn(create('App\User', ['name' => 'JohnDoe' ]));
+         $threadByJohn = create('App\Thread', ['user_id' => auth()->id()]);
+         $threadNotByJohn = create('App\Thread');
+
+         $this->get('threads?by=JohnDoe')
+             ->assertSee($threadByJohn->title)
+             ->assertDontSee($threadNotByJohn->title);
+
+
     }
 
 }
