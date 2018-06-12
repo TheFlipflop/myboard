@@ -8,6 +8,10 @@ use App\Thread;
 use App\User;
 use Illuminate\Http\Request;
 
+/**
+ * Class ThreadController
+ * @package App\Http\Controllers
+ */
 class ThreadController extends Controller
 {
 
@@ -109,12 +113,23 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Thread  $thread
+     * @param Channel $channel
+     * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy(Channel $channel, Thread $thread)
     {
-        //
+        $this->authorize('update', $thread);
+
+        $thread->delete();
+
+        if(request()->wantsJson())
+        {
+            return response([], 204);
+        }
+
+        return redirect('/threads');
+
     }
 
     /**
