@@ -9,6 +9,12 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.Vue.prototype.authorize = function (handler) {
+    let user = window.App.user;
+
+    return user ? handler(user) : false;
+};
+
 window.events = new Vue();
 
 window.flash = function (message) {
@@ -22,7 +28,7 @@ window.flash = function (message) {
  */
 
 Vue.component('flash-component', require('./components/FlashComponent.vue'));
-Vue.component('reply-component', require('./components/ReplyComponent.vue'));
+Vue.component('thread-view', require('./pages/ThreadComponent.vue'));
 
 const app = new Vue({
     el: '#app'

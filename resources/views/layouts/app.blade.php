@@ -11,7 +11,16 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script charset="uft-8">
+        window.App = {!! json_encode([
+        'signedIn' => Auth::check(),
+        'user' => Auth::user()
+        ]) !!};
+    </script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
