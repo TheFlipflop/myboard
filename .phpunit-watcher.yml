@@ -1,0 +1,7 @@
+watch:
+  directories:
+    - app
+    - public
+    - tests
+    - resources
+  fileMask: '*.php'
