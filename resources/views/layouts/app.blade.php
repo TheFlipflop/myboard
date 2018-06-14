@@ -30,6 +30,12 @@
             align-items: center
         }
         .flex { flex: 1 }
+
+        [v-cloak] { display: none}
+
+        .card-header, .card-footer {
+            padding: 0.4rem 0.4rem;
+        }
     </style>
 </head>
 <body style="padding-bottom: 75px;">
